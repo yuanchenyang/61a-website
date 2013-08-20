@@ -287,8 +287,8 @@ TerminalShell.commands['sleep'] = function(terminal, duration) {
 
 TerminalShell.commands['help'] =
     TerminalShell.commands['halp'] = function(terminal) {
-    terminal.print('');
-};
+        terminal.print('');
+    };
 
 TerminalShell.fallback = function(terminal, cmd) {
     oneliners = {
