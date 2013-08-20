@@ -400,14 +400,18 @@ var Terminal = {
     },
 
     print: function(text) {
+        var $jq;
 	if (!text) {
-	    $('#display').append($('<div>'));
+	    $jq = $('<div>');
 	} else if( text instanceof jQuery ) {
-	    $('#display').append(text);
+	    $jq = text;
 	} else {
 	    var av = Array.prototype.slice.call(arguments, 0);
-	    $('#display').append($('<p>').text(av.join(' ')));
+	    $jq = $('<p>').text(av.join(' '));
 	}
+        var html = $jq[0].outerHTML // Adds color
+                .replace(/\[(\w+)\]\[([^\[\]]*)\]/g, '<span class="$1">$2</span>');
+        $('#display').append(html);
 	this.jumpToBottom();
     },
 

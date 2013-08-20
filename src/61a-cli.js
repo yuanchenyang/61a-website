@@ -14,11 +14,6 @@ function randomChoice(items) {
     return items[getRandomInt(0, items.length-1)];
 }
 
-function color(text) {
-    return text.replace(/\[(\w+)\]\[([^\[\]]*)\]/, '<span class="$1">$2</span>');
-}
-
-
 TerminalShell.commands['sudo'] = function(terminal) {
     var cmd_args = Array.prototype.slice.call(arguments);
     cmd_args.shift(); // terminal
@@ -87,9 +82,10 @@ function linkFile(url) {
 
 Filesystem = {
     'welcome.txt': {type:'file', read:function(terminal) {
-	terminal.print($('<h4>').text('Welcome to the Chenyang\'s 61a console.'));
-	terminal.print('Use "ls", "cat", and "cd" to navigate the filesystem.');
-        terminal.print('Type "help" for more detailed instructions.');
+	terminal.print($('<h4>')
+                       .text('[y][Welcome to the Chenyang\'s 61a console.]'));
+	terminal.print('Use [g][ls], [g][cat], and [g][cd] to navigate the filesystem.');
+        terminal.print('Type [g][help] for more detailed instructions.');
     }},
     'license.txt': {type:'file', read:function(terminal) {
 	terminal.print($('<p>').html('Client-side logic for Wordpress CLI theme :: <a href="http://thrind.xamai.ca/">R. McFarland, 2006, 2007, 2008</a>'));

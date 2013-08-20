@@ -45,7 +45,7 @@ div#credit a { font-size:xx-small; text-decoration:underline; }
   Colors
  */
 
-span.green {color: #0F0;}
-span.yellow {color: #FF0;}
-span.red {color: #F00;}
-span.cyan {color: #0FF;}
+span.green, span.g {color: #0F0;}
+span.yellow, span.y {color: #FF0;}
+span.red, span.r {color: #F00;}
+span.cyan, span.c {color: #0FF;}
