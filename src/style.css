@@ -16,7 +16,7 @@ div#screen p, div#screen span, div#screen a { white-space:pre-wrap; }
 div#screen p.error { color:red; }
 div#screen li { list-style:none; }
 div#welcome { display:none; }
-h1, h2 { background-color:#FFF; color:#000; }
+h1, h2, p.white { background-color:#FFF; color:#000; padding:3px}
 h3 { color:#FFF; text-decoration:underline; margin:5px 0; }
 h4, h5, h6 { text-decoration:none; margin:0; }
 a, a:visited, .linky { color:#FFF; cursor:pointer; font-weight:bold; text-decoration:none; }

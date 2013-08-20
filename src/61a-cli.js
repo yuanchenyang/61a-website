@@ -194,22 +194,6 @@ TerminalShell.commands['wget'] = TerminalShell.commands['curl'] = function(termi
     }
 };
 
-TerminalShell.commands['write'] =
-    TerminalShell.commands['irc'] = function(terminal, nick) {
-	if (nick) {
-	    $('.irc').slideUp('fast', function() {
-		$(this).remove();
-	    });
-	    var url = "http://widget.mibbit.com/?server=irc.foonetic.net&channel=%23xkcd";
-	    if (nick) {
-		url += "&nick=" + encodeURIComponent(nick);
-	    }
-	    TerminalShell.commands['curl'](terminal, url).addClass('irc');
-	} else {
-	    terminal.print('usage: irc <nick>');
-	}
-    };
-
 TerminalShell.commands['unixkcd'] = function(terminal, nick) {
     TerminalShell.commands['curl'](terminal, "http://www.xkcd.com/unixkcd/");
 };
