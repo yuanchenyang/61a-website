@@ -176,7 +176,7 @@ TerminalShell.commands['rm'] = function(terminal, flags, path) {
 
 TerminalShell.commands['wget'] = TerminalShell.commands['curl'] = function(terminal, dest) {
     if (dest) {
-	terminal.setWorking(true);
+        terminal.clear();
 	var browser = $('<div>')
 		.addClass('browser')
 		.append($('<iframe>')
