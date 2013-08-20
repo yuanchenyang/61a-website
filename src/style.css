@@ -11,12 +11,13 @@ div#screen { height:99%; margin:2px; overflow:hidden; padding:0; }
 div, table { margin-bottom:1em; margin-top:0em; }
 pre, td, p { background-color:transparent; }
 code, p, span, td, th { font-size:1em; }
-p, div#display, ul { margin:0; }
+p, div#display, ul{ margin:0; }
 div#screen p, div#screen span, div#screen a { white-space:pre-wrap; }
 div#screen p.error { color:red; }
 div#screen li { list-style:none; }
 div#welcome { display:none; }
-h1, h2, p.white { background-color:#FFF; color:#000; padding:3px}
+ul.list li {padding-left: 20px}
+h1, h2, .white { background-color:#FFF; color:#000; padding:3px}
 h3 { color:#FFF; text-decoration:underline; margin:5px 0; }
 h4, h5, h6 { text-decoration:none; margin:0; }
 a, a:visited, .linky { color:#FFF; cursor:pointer; font-weight:bold; text-decoration:none; }
@@ -39,3 +40,12 @@ form#searchform input[type=submit] { background-color:#FFF; border:1px solid #00
 div#credit { position:absolute; bottom:0; color:#FFF; font-size:xx-small; opacity:.25; }
 div#credit:hover { opacity:.75; }
 div#credit a { font-size:xx-small; text-decoration:underline; }
+
+/*
+  Colors
+ */
+
+span.green {color: #0F0;}
+span.yellow {color: #FF0;}
+span.red {color: #F00;}
+span.cyan {color: #0FF;}

@@ -14,6 +14,10 @@ function randomChoice(items) {
     return items[getRandomInt(0, items.length-1)];
 }
 
+function color(text) {
+    return text.replace(/\[(\w+)\]\[([^\[\]]*)\]/, '<span class="$1">$2</span>');
+}
+
 
 TerminalShell.commands['sudo'] = function(terminal) {
     var cmd_args = Array.prototype.slice.call(arguments);
@@ -83,9 +87,9 @@ function linkFile(url) {
 
 Filesystem = {
     'welcome.txt': {type:'file', read:function(terminal) {
-	terminal.print($('<h4>').text('Welcome to the unixkcd console.'));
-	terminal.print('To navigate the comics, enter "next", "prev", "first", "last", "display", or "random".');
+	terminal.print($('<h4>').text('Welcome to the Chenyang\'s 61a console.'));
 	terminal.print('Use "ls", "cat", and "cd" to navigate the filesystem.');
+        terminal.print('Type "help" for more detailed instructions.');
     }},
     'license.txt': {type:'file', read:function(terminal) {
 	terminal.print($('<p>').html('Client-side logic for Wordpress CLI theme :: <a href="http://thrind.xamai.ca/">R. McFarland, 2006, 2007, 2008</a>'));
@@ -110,10 +114,7 @@ Filesystem = {
 	});
     }}
 };
-Filesystem['blog'] = Filesystem['blag'] = linkFile('http://blag.xkcd.com');
-Filesystem['forums'] = Filesystem['fora'] = linkFile('http://forums.xkcd.com/');
-Filesystem['store'] = linkFile('http://store.xkcd.com/');
-Filesystem['about'] = linkFile('http://xkcd.com/about/');
+Filesystem['61a'] = linkFile('http://www-inst.eecs.berkeley.edu/~cs61a/fa13/');
 TerminalShell.pwd = Filesystem;
 
 TerminalShell.commands['cd'] = function(terminal, path) {
@@ -284,9 +285,9 @@ TerminalShell.commands['sleep'] = function(terminal, duration) {
     }, 1000*duration);
 };
 
-// No peeking!
-TerminalShell.commands['help'] = TerminalShell.commands['halp'] = function(terminal) {
-    terminal.print('That would be cheating!');
+TerminalShell.commands['help'] =
+    TerminalShell.commands['halp'] = function(terminal) {
+    terminal.print('');
 };
 
 TerminalShell.fallback = function(terminal, cmd) {
@@ -303,7 +304,6 @@ TerminalShell.fallback = function(terminal, cmd) {
 	'who': 'Doctor Who?',
 	'xkcd': 'Yes?',
 	'su': 'God mode activated. Remember, with great power comes great ... aw, screw it, go have fun.',
-	'fuck': 'I have a headache.',
 	'whoami': 'You are Richard Stallman.',
 	'nano': 'Seriously? Why don\'t you just use Notepad.exe? Or MS Paint?',
 	'top': 'It\'s up there --^',
@@ -311,9 +311,9 @@ TerminalShell.fallback = function(terminal, cmd) {
 	'ping': 'There is another submarine three miles ahead, bearing 225, forty fathoms down.',
 	'find': 'What do you want to find? Kitten would be nice.',
 	'hello':'Hello.','more':'Oh, yes! More! More!',
-	'your gay': 'Keep your hands off it!',
 	'hi':'Hi.','echo': 'Echo ... echo ... echo ...',
-	'bash': 'You bash your head against the wall. It\'s not very effective.','ssh': 'ssh, this is a library.',
+	'bash': 'You bash your head against the wall. It\'s not very effective.',
+        'ssh': 'ssh, this is a library.',
 	'uname': 'Illudium Q-36 Explosive Space Modulator',
 	'finger': 'Mmmmmm...',
 	'kill': 'Terminator deployed to 1984.',
@@ -323,7 +323,7 @@ TerminalShell.fallback = function(terminal, cmd) {
 	'enable time travel': 'TARDIS error: Time Lord missing.',
 	'ed': 'You are not a diety.'
     };
-    oneliners['emacs'] = 'You should really use vim.';
+    oneliners['emacs'] = 'You\'ve made the right choice!';
     oneliners['vi'] = oneliners['vim'] = 'You should really use emacs.';
 
     cmd = cmd.toLowerCase();
@@ -341,6 +341,6 @@ TerminalShell.fallback = function(terminal, cmd) {
 $(document).ready(function() {
     Terminal.promptActive = true;
     $('#screen').bind('cli-load', function(e) {
-
+        Terminal.runCommand('cat welcome.txt');
     });
 });
