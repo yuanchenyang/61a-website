@@ -83,7 +83,7 @@ function linkFile(url) {
 Filesystem = {
     'welcome.txt': {type:'file', read:function(terminal) {
 	terminal.print($('<h4>')
-                       .text('[y][Welcome to the Chenyang\'s 61a console.]'));
+                       .text('[y][Welcome to Chenyang\'s 61a console.]'));
 	terminal.print('Use [g][ls], [g][cat], and [g][cd] to navigate the filesystem.');
         terminal.print('Type [g][help] for more detailed instructions.');
     }},
@@ -243,7 +243,6 @@ function oneLiner(terminal, msg, msgmap) {
 
 TerminalShell.commands['man'] = function(terminal, what) {
     pages = {
-	'last': 'Man, last night was AWESOME.',
 	'help': 'Man, help me out here.',
 	'next': 'Request confirmed; you will be reincarnated as a man next.',
 	'cat':  'You are now riding a half-man half-cat.'
@@ -283,13 +282,34 @@ TerminalShell.commands['sleep'] = function(terminal, duration) {
 
 TerminalShell.commands['help'] =
     TerminalShell.commands['halp'] = function(terminal) {
+        terminal.print('[y][Console help:]');
+        terminal.print('[g][ls]               List all files and directories');
+        terminal.print('[g][cat] <filename>   View the contents of a file');
+        terminal.print('[g][cd] <dirname>     Go to a directory');
+        terminal.print('[g][rm] <filename>    Removes a file');
+        terminal.print('[g][wget] <url>       Loads url');
         terminal.print('');
+        terminal.print('[y][Type] [g][commands] [y][for more commands to try]');
+        terminal.print('[y][Use arrow keys to navigate command history]');
     };
+
+var DOCUMENTED_COMMANDS =
+        ['apt-get moo', 'bash', 'ed', 'emacs', 'enable time travel', 'find',
+         'hello', 'hi', 'kill', 'locate', 'logout', 'lpr', 'man', 'moo', 'nano',
+         'ping', 'pwd', 'restart', 'serenity', 'shutdown', 'ssh', 'su', 'sudo',
+         'top', 'uname', 'use the force luke', 'vi', 'who', 'whoami'];
+
+TerminalShell.commands['commands'] = function(terminal) {
+    terminal.print('[y][Try these commands!]');
+    terminal.print('[y][This is not a comprehensive list, discover the rest yourself!]');
+    DOCUMENTED_COMMANDS.forEach(function(e){
+        terminal.print('[g][' + e + ']');
+    });
+};
 
 TerminalShell.fallback = function(terminal, cmd) {
     oneliners = {
 	'make me a sandwich': 'What? Make it yourself.',
-	'make love': 'I put on my robe and wizard hat.',
 	'i read the source code': '<3',
 	'pwd': 'You are in a maze of twisty passages, all alike.',
 	'lpr': 'PC LOAD LETTER',
@@ -311,7 +331,6 @@ TerminalShell.fallback = function(terminal, cmd) {
 	'bash': 'You bash your head against the wall. It\'s not very effective.',
         'ssh': 'ssh, this is a library.',
 	'uname': 'Illudium Q-36 Explosive Space Modulator',
-	'finger': 'Mmmmmm...',
 	'kill': 'Terminator deployed to 1984.',
 	'use the force luke': 'I believe you mean source.',
 	'use the source luke': 'I\'m not luke, you\'re luke!',
