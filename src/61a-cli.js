@@ -290,7 +290,8 @@ TerminalShell.commands['help'] =
         terminal.print('[g][wget] <url>       Loads url');
         terminal.print('');
         terminal.print('[y][Type] [g][commands] [y][for more commands to try]');
-        terminal.print('[y][Use arrow keys to navigate command history]');
+        terminal.print('[y][Use] [g][<arrow keys>] [y][to navigate command history]');
+        terminal.print('[y][Press] [g][<TAB>] [y][for autocompletion of files and directories]');
     };
 
 var DOCUMENTED_COMMANDS =

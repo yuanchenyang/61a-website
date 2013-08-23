@@ -230,6 +230,23 @@ var Terminal = {
 	    }))
 	    .bind('keydown', 'tab', function(e) {
 		e.preventDefault();
+                var words = Terminal.buffer.split(" ");
+                var last = words[words.length - 1];
+                var completions = [];
+                for (var name in Filesystem) {
+                    if ((new RegExp("^" + last)).exec(name) && name != "__proto__") {
+                        completions.push(name);
+                    }
+                }
+                if (completions.length == 0) {
+                } else if (completions.length == 1) {
+                    for (var i=last.length; i < completions[0].length; i++) {
+                        Terminal.addCharacter(completions[0][i]);
+                    }
+                    Terminal.updateInputDisplay();
+                } else {
+                    Terminal.print("[g][" + completions.join(" ") + "]");
+                }
 	    })
 	    .keyup(function(e) {
 		var keyName = $.hotkeys.specialKeys[e.which];
