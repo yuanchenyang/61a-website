@@ -229,15 +229,21 @@ var Terminal = {
 		}
 	    }))
 	    .bind('keydown', 'tab', function(e) {
+                // Autocomplete
 		e.preventDefault();
                 var words = Terminal.buffer.split(" ");
                 var last = words[words.length - 1];
                 var completions = [];
                 for (var name in Filesystem) {
-                    if ((new RegExp("^" + last)).exec(name) && name != "__proto__") {
+                    if (name != "__proto__") {
                         completions.push(name);
                     }
                 }
+
+                completions = completions.filter(function (item) {
+                    return (new RegExp("^" + last)).exec(item);
+                });
+
                 if (completions.length == 0) {
                 } else if (completions.length == 1) {
                     for (var i=last.length; i < completions[0].length; i++) {
@@ -245,6 +251,18 @@ var Terminal = {
                     }
                     Terminal.updateInputDisplay();
                 } else {
+                    i = last.length;
+                    loop:
+                    while (true) {
+                        var lastchar = completions[0][i];
+                        for (var j = 0; j < completions.length; j++) {
+                            if (completions[j][i] != lastchar) {
+                                break loop;
+                            };
+                        }
+                        Terminal.addCharacter(lastchar);
+                        i++;
+                    }
                     Terminal.print("[g][" + completions.join(" ") + "]");
                 }
 	    })
