@@ -108,12 +108,6 @@ Filesystem = {
 	], function(num, line) {
 	    terminal.print(line);
 	});
-    }},
-    'welcome2.txt': {type:'file', read:function(terminal) {
-	terminal.print($('<h4>')
-                       .text('[y][Welcome to Chenyang\'s 61a console.]'));
-	terminal.print('Use [g][ls], [g][cat], and [g][cd] to navigate the filesystem.');
-        terminal.print('Type [g][help] for more detailed instructions.');
     }}
 };
 Filesystem['61a'] = linkFile('http://www-inst.eecs.berkeley.edu/~cs61a/fa13/');
