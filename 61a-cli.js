@@ -289,20 +289,21 @@ TerminalShell.commands['help'] =
         terminal.print('[g][rm] <filename>    Removes a file');
         terminal.print('[g][wget] <url>       Loads url');
         terminal.print('');
-        terminal.print('[y][Type] [g][commands] [y][for more commands to try]');
         terminal.print('[y][Use] [g][<UP>] [y][and] [g][<DOWN>] [y][to navigate command history]');
         terminal.print('[y][Press] [g][<TAB>] [y][for autocompletion of files and directories]');
+        terminal.print('');
+        terminal.print('[y][Type] [g][commands] [y][for more commands to try]');
     };
 
 var DOCUMENTED_COMMANDS =
-        ['apt-get moo', 'bash', 'ed', 'emacs', 'enable time travel', 'find',
-         'hello', 'hi', 'kill', 'locate', 'logout', 'lpr', 'man', 'moo', 'nano',
-         'ping', 'pwd', 'restart', 'serenity', 'shutdown', 'ssh', 'su', 'sudo',
-         'top', 'uname', 'use the force luke', 'vi', 'who', 'whoami'];
+        ['apt-get moo', 'bash', 'ed', 'emacs', 'find', 'kill', 'locate',
+         'logout', 'lpr', 'man', 'nano', 'ping', 'pwd', 'restart', 'shutdown',
+         'ssh', 'su', 'sudo', 'top', 'uname', 'vi', 'who', 'whoami'];
 
 TerminalShell.commands['commands'] = function(terminal) {
-    terminal.print('[y][Try these commands!]');
+    terminal.print('[y][Try these commands! (Both here and on an actual Unix terminal)]');
     terminal.print('[y][This is not a comprehensive list, discover the rest yourself!]');
+    terminal.print('[y][Hint: look at the source code]');
     DOCUMENTED_COMMANDS.forEach(function(e){
         terminal.print('[g][' + e + ']');
     });
