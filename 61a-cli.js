@@ -290,6 +290,7 @@ TerminalShell.commands['help'] =
         terminal.print('[g][wget] <url>       Loads url');
         terminal.print('');
         terminal.print('[y][Use] [g][<UP>] [y][and] [g][<DOWN>] [y][to navigate command history]');
+        terminal.print('[y][Press] [g][<CTRL>] and then [g][<UP>] [y][and] [g][<DOWN>] [y][to scroll]');
         terminal.print('[y][Press] [g][<TAB>] [y][for autocompletion of files and directories]');
         terminal.print('');
         terminal.print('[y][Type] [g][commands] [y][for more commands to try]');
