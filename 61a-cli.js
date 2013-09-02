@@ -110,10 +110,10 @@ Filesystem = {
 	});
     }},
     'emacs.pdf' : {type:"file", read: function(terminal) {
-        window.open('/files/emacs.pdf');
+        window.open('files/emacs.pdf');
     }},
     'emacs-reference.pdf' : {type:"file", read: function(terminal) {
-        window.open('/files/emacs-reference.pdf');
+        window.open('files/emacs-reference.pdf');
     }}
 };
 Filesystem['61a'] = linkFile('http://www-inst.eecs.berkeley.edu/~cs61a/fa13/');
