@@ -35,6 +35,11 @@ function trim(value) {
     return '';
 } /**** end from http://snippets.dzone.com/posts/show/701 ****/
 
+// Escapes characters to use in regexps
+function escapeRegExp(str) {
+    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
 function entityEncode(str) {
     str = str.replace(/&/g, '&amp;');
     str = str.replace(/</g, '&lt;');
@@ -241,7 +246,7 @@ var Terminal = {
                 }
 
                 completions = completions.filter(function (item) {
-                    return (new RegExp("^" + last)).exec(item);
+                    return (new RegExp("^" + escapeRegExp(last))).exec(item);
                 });
 
                 if (completions.length == 0) {
