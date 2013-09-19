@@ -114,6 +114,9 @@ Filesystem = {
     }},
     'emacs-reference.pdf' : {type:"file", read: function(terminal) {
         window.open('files/emacs-reference.pdf');
+    }},
+    'environment_diagrams.pdf' : {type:"file", read: function(terminal) {
+        window.open('files/environment_diagrams.pdf');
     }}
 };
 Filesystem['61a'] = linkFile('http://www-inst.eecs.berkeley.edu/~cs61a/fa13/');
