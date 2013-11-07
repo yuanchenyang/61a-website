@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" type="text/css" href="css/codemirror.css" />
+<link rel="stylesheet" type="text/css" href="css/isicp.css" />
+<link rel="stylesheet" type="text/css" href="css/theme.css" />
+
+<script src="js/helper.js"></script>
+<script src="js/codemirror.js"></script>
+<script src="js/scheme-mode.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/coding.js"> </script>
+
+<h2> Discussion 9 - Scheme </h2>
+
+<hr>
+
+<h4> 3.4 </h4>
+<div id="one-a">
+(if (or #t
+        (/ 1 0))
+    1
+    (/ 1 0))
+</div>
+<script>
+  prompt("one-a");
+</script>
+
+<div id="one-b">
+(if (> 4 3)
+    (+ 1 2 3 4)
+    (+ 3 4 (* 3 2)))
+</div>
+<script>
+  prompt("one-b");
+</script>
+
+<div id="one-c">
+((if (< 4 3)
+     +
+     -) 4 100)
+</div>
+<script>
+  prompt("one-c");
+</script>
+
+<h4> 4.1 - Factorial</h4>
+<div id="factorial">
+(define (factorial x)
+  )
+</div>
+<script> prompt("factorial"); </script>
+
+<h4> 4.1 - Fibonacci</h4>
+<div id="fibonacci">
+(define (fib n)
+  (if (< n 2)
+      1
+      ))
+</div>
+<script> prompt("fibonacci"); </script>
+
+<h4> 5.1 - Map</h4>
+<div id="map">
+(define (square x) (* x x))
+
+(define (map fn lst)
+  )
+</div>
+<script> prompt("map"); </script>
+
+<h4> 5.1 - Reduce</h4>
+<div id="reduce">
+(define (reduce fn s lst)
+  )
+</div>
+<script> prompt("reduce"); </script>
+
+<h4> 5.1 - Data abstraction</h4>
+<div id="make-btree">
+(define (make-btree entry left right)
+  (cons entry (cons left right)))
+
+(define test-tree
+  (make-btree 2
+              (make-btree 1
+                          nil
+                          nil)
+              (make-btree 4
+                          (make-btree 3
+                                      nil
+                                      nil)
+                          nil)))
+
+(define (entry tree)
+  )
+
+(define (left tree)
+  )
+
+(define (right tree)
+  )
+</div>
+<script> prompt("make-btree"); </script>
+
+
+<h4> 5.1 - Binary tree sum</h4>
+<div id="btree-sum">
+(define (btree-sum tree)
+  )
+</div>
+<script>
+  prompt("btree-sum");
+  addDep("btree-sum", ["make-btree"]);
+</script>
+
+<h4> 5.2 - Insert</h4>
+<div id="insert">
+(define (insert element lst position)
+  )
+</div>
+<script> prompt("insert"); </script>
+
+<h4> 5.2 - Duplicate</h4>
+<div id="duplicate">
+(define (duplicate lst)
+  )
+</div>
+<script> prompt("duplicate"); </script>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</head>
+</html>

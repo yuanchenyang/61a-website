@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" type="text/css" href="css/codemirror.css" />
+<link rel="stylesheet" type="text/css" href="css/isicp.css" />
+<link rel="stylesheet" type="text/css" href="css/theme.css" />
+
+<script src="js/helper.js"></script>
+<script src="js/codemirror.js"></script>
+<script src="js/scheme-mode.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/coding.js"> </script>
+
+<h2> Discussion 10 - Meta-circular Evaluator </h2>
+
+<hr>
+
+
+<h4>Expressions</h4>
+
+<p>
+  An expression is either an <i>atom</i>, which is a sequence of letters, or
+  a <i>list</i> of zero or more expressions, separated by whitespace and
+  enclosed by parentheses. Here are some expressions:
+</p>
+
+<div id="expressions">
+foo
+()
+(foo)
+(foo bar)
+(a b (c) d)
+</div>
+<script>
+  makeStatic("expressions");
+</script>
+
+<p>
+  If the expression is a list, we call the first element the <i>operator</i>,
+  and the remaining elements <i>arguments</i>. We are going to define seven
+  primitive operators: <tt>quote</tt>, <tt>atom</tt>, <tt>eq</tt>, <tt>car</tt>,
+  <tt>cdr</tt>, <tt>cons</tt> and <tt>cond</tt>.
+</p>
+
+
+<h4>Quote</h4>
+<div id="q1">
+(quote a)
+</div>
+<script>
+  prompt("q1");
+</script>
+
+<div id="q2">
+(quote (a b c))
+</div>
+<script>
+  prompt("q2");
+</script>
+
+<div id="q3">
+'(a b c)
+</div>
+<script>
+  prompt("q3");
+</script>
+
+<h4>Atoms</h4>
+<div id="a1">
+(atom? 'a)
+</div>
+<script>
+  prompt("a1");
+</script>
+
+<div id="a2">
+(atom? '(a b c))
+</div>
+<script>
+  prompt("a2");
+</script>
+
+<div id="a3">
+(atom? #f)
+</div>
+<script>
+  prompt("a3");
+</script>
+
+<h4>Equality</h4>
+<div id="e1">
+(eq? 'a 'a)
+</div>
+<script>
+  prompt("e1");
+</script>
+
+
+<div id="e2">
+(eq? 'a 'b)
+</div>
+<script>
+  prompt("e2");
+</script>
+
+
+<div id="e3">
+(eq? eq? eq?)
+</div>
+<script>
+  prompt("e3");
+</script>
+
+<h4>Car</h4>
+<div id="car">
+(car '(a b c))
+</div>
+<script>
+  prompt("car");
+</script>
+
+<h4>Cdr</h4>
+<div id="cdr">
+(cdr '(a b c))
+</div>
+<script>
+  prompt("cdr");
+</script>
+
+<h4>Cons</h4>
+<div id="cons">
+(cons 'a '(b c))
+(cons 'a 'b)
+</div>
+<script>
+  prompt("cons");
+</script>
+
+
+<h4>Cond</h4>
+
+<p>
+  <tt>(cond (p1 e1) ... (pn en))</tt> is evaluated as follows: The <tt>p</tt>
+  expressions are evaluated in order until one returns <tt>true</tt>. When one
+  is found, the value of the corresponding <tt>e</tt> expression is returned as
+  the value of the whole <tt>cond</tt> expression.
+</p>
+
+<div id="cond">
+(cond ((eq? 'a 'b) 'first)
+      ((atom? 'a) 'second))
+</div>
+<script>
+  prompt("cond");
+</script>
+
+<h4>Defining Functions</h4>
+
+<div id="lambda">
+((lambda (x) (car (cdr x)))
+  '(1 2 3))
+</div>
+<script>
+  prompt("lambda");
+</script>
+<br><br><br>
+
+<div id="lambda2">
+((lambda (f) (f '(b c)))
+  (lambda (x) (cons 'a x)))
+</div>
+<script>
+  prompt("lambda2");
+</script>
+<br><br><br>
+
+<div id="define">
+(define (caddr l)
+  (car (cdr (cdr l))))
+
+(caddr '((a b) (c d) e))
+</div>
+<script>
+  prompt("define");
+</script>
+<br><br><br>
+
+<div id="cxr">
+(define (caddr l)
+  (car (cdr (cdr l))))
+
+(define (caddar l)
+  (car (cdr (cdr (car l)))))
+
+(define (cadar l)
+  (car (cdr (car l))))
+
+(define (caar l)
+  (car (car l)))
+</div>
+<script>
+  prompt("cxr");
+</script>
+<br><br><br>
+
+<div id="abbrevs">
+(cons 'a (cons 'b (cons 'c '())))
+(list 'a 'b 'c)
+</div>
+<script>
+  prompt("abbrevs");
+</script>
+<br><br><br>
+
+<h4>Some new procedures</h4>
+
+<div id="null">
+(define (null. x)
+  (eq? x '()))
+
+</div>
+<script>
+  prompt("null");
+</script>
+<div id="nullex">
+(null. 'a)
+(null. '())
+</div>
+<script>
+  prompt("nullex");
+  addDep("nullex", ["null"]);
+</script>
+<br><br><br>
+
+
+<div id="and">
+(define (and. x y)
+  (cond (x (cond (y #t)
+                 (#t #f)))
+        (#t #f)))
+</div>
+<script>
+  prompt("and");
+</script>
+<div id="andex">
+(and. (atom? 'a) (eq? 'a 'a))
+(and. (atom? 'a) (eq? 'a 'b))
+</div>
+<script>
+  prompt("andex");
+  addDep("andex", ["and"]);
+</script>
+<br><br><br>
+
+<div id="not">
+(define (not. x)
+  (cond (x #f)
+        (#t #t)))
+</div>
+<script>
+  prompt("not");
+</script>
+<div id="notex">
+(not. (eq? 'a 'a))
+(not. (eq? 'a 'b))
+</div>
+<script>
+  prompt("notex");
+  addDep("notex", ["not"]);
+</script>
+<br><br><br>
+
+<div id="append">
+(define (append. x y)
+  (cond ((null. x) y)
+        (#t (cons (car x)
+            (append. (cdr x) y)))))
+</div>
+<script>
+  prompt("append");
+  addDep("append", ["null"]);
+</script>
+<div id="appendex">
+(append. '(a b) '(c d))
+(append. '() '(c d))
+</div>
+<script>
+  prompt("appendex");
+  addDep("appendex", ["append"]);
+</script>
+<br><br><br>
+
+
+<div id="pair">
+(define (pair. x y)
+  (cond ((and. (null. x)
+               (null. y))
+         '())
+        ((and. (not. (atom? x))
+               (not. (atom? y)))
+         (cons (list (car x) (car y))
+               (pair. (cdr x) (cdr y))))))
+</div>
+<script>
+  prompt("pair");
+  addDep("pair", ["and", "not", "null"]);
+</script>
+<div id="pairex">
+(pair. '(x y z) '(a b c))
+</div>
+<script>
+  prompt("pairex");
+  addDep("pairex", ["pair"]);
+</script>
+<br><br><br>
+
+
+<div id="assoc">
+(define (assoc. x y)
+  (cond ((eq? (caar y) x)
+         (cadar y))
+        (#t (assoc. x (cdr y)))))
+</div>
+<script>
+  prompt("assoc");
+  addDep("assoc", ["cxr"]);
+</script>
+<div id="assocex">
+(assoc. 'x '((y a) (x b)))
+(assoc. 'x '((y a) (x new) (x b)))
+</div>
+<script>
+  prompt("assocex");
+  addDep("assocex", ["assoc"]);
+</script>
+<br><br><br>
+
+<h4>The Surprise</h4>
+
+<div id="eval">
+(define (eval. exp env)
+  (cond
+   ((atom? exp) (assoc. exp env))
+   ((atom? (car exp))
+    (cond
+     ((eq? (car exp) 'quote) (cadr exp))
+     ((eq? (car exp) 'atom?) (atom?   (eval. (cadr  exp) env)))
+     ((eq? (car exp) 'eq?)   (eq?    (eval. (cadr  exp) env)
+                                     (eval. (caddr exp) env)))
+     ((eq? (car exp) 'car)   (car    (eval. (cadr  exp) env)))
+     ((eq? (car exp) 'cdr)   (cdr    (eval. (cadr  exp) env)))
+     ((eq? (car exp) 'cons)  (cons   (eval. (cadr  exp) env)
+                                     (eval. (caddr exp) env)))
+     ((eq? (car exp) 'cond)  (evcon. (cdr exp) env))
+     (#t (eval. (cons (assoc. (car exp) env)
+                      (cdr exp))
+                env))))
+   ((eq? (caar exp) 'label)
+    (eval. (cons (caddar exp) (cdr exp))
+           (cons (list (cadar exp) (car exp)) env)))
+   ((eq? (caar exp) 'lambda)
+    (eval. (caddar exp)
+           (append. (pair. (cadar exp) (evlis. (cdr exp) env))
+                    env)))))
+
+(define (evcon. c env)
+  (cond ((eval. (caar c) env)
+         (eval. (cadar c) env))
+        (#t (evcon. (cdr c) env))))
+
+(define (evlis. m env)
+  (cond ((null. m) '())
+        (#t (cons (eval.  (car m) env)
+                  (evlis. (cdr m) env)))))
+</div>
+<script>
+  prompt("eval");
+  addDep("eval", ["assoc", "append", "pair", "null"]);
+</script>
+<br><br><br>
+
+ <!-- addDep("btree-sum", ["make-btree"]);  -->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</head>
+</html>
