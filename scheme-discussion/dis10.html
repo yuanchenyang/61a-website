@@ -377,11 +377,52 @@ foo
 </div>
 <script>
   prompt("eval");
-  addDep("eval", ["assoc", "append", "pair", "null"]);
+  addDep("eval", ["cxr", "assoc", "append", "pair", "null"]);
 </script>
 <br><br><br>
 
- <!-- addDep("btree-sum", ["make-btree"]);  -->
+<div id="evalex1">
+(eval. 'x '((x a) (y b)))
+</div>
+<script>
+  prompt("evalex1");
+  addDep("evalex1", ["eval"]);
+</script>
+<br><br>
+
+<div id="evalex2">
+(eval. '(cons x '(b c))
+       '((x a) (y b)))
+</div>
+<script>
+  prompt("evalex2");
+  addDep("evalex2", ["eval"]);
+</script>
+<br><br>
+
+<div id="evalex3">
+(eval. '(f '(b c))
+       '((f (lambda (x) (cons 'a x)))))
+</div>
+<script>
+  prompt("evalex3");
+  addDep("evalex3", ["eval"]);
+</script>
+<br><br>
+
+<div id="evalex4">
+(eval. '((lambda (x y) (cons x (cdr y)))
+         'a
+         '(b c d))
+       '())
+</div>
+<script>
+  prompt("evalex4");
+  addDep("evalex4", ["eval"]);
+</script>
+<br><br>
+
+
 <br>
 <br>
 <br>
