@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" type="text/css" href="css/codemirror.css" />
+<link rel="stylesheet" type="text/css" href="css/isicp.css" />
+<link rel="stylesheet" type="text/css" href="css/theme.css" />
+
+<script src="js/helper.js"></script>
+<script src="js/codemirror.js"></script>
+<script src="js/scheme-mode.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/coding-logic.js"> </script>
+
+<h2> Discussion 12 - Logic </h2>
+
+<hr>
+
+<h4> 2 - Simple Facts and Queries </h4>
+<div id="two-a">
+(fact (sells supermarket groceries))
+</div>
+<script>
+  prompt("two-a");
+</script>
+
+<div id="two-b">
+(query (sells supermarket groceries))
+</div>
+<script>
+  prompt("two-b");
+  addDep("two-b", ["two-a"]);
+</script>
+
+<div id="two-c">
+(query (sells supermarket books))
+</div>
+<script>
+  prompt("two-c");
+  addDep("two-c", ["two-a"]);
+</script>
+
+<div id="two-d">
+(query (sells supermarket ?stuff))
+</div>
+<script>
+  prompt("two-d");
+  addDep("two-d", ["two-a"]);
+</script>
+
+<div id="two-e">
+(query (sells ?place groceries))
+</div>
+<script>
+  prompt("two-e");
+  addDep("two-e", ["two-a"]);
+</script>
+
+<div id="two-f">
+(query (sells ?place ?stuff))
+</div>
+<script>
+  prompt("two-f");
+  addDep("two-f", ["two-a"]);
+</script>
+
+<br><br><br>
+
+<div id="two-g">
+(fact (person (name bob) (age 49)))
+(fact (person (name alice) (age 20)))
+</div>
+<script>
+  prompt("two-g");
+</script>
+
+<div id="two-h">
+(query (person (name ?first-name) (age 49)))
+</div>
+<script>
+  prompt("two-h");
+  addDep("two-h", ["two-g"]);
+</script>
+
+<div id="two-i">
+(query (person (name bob) ?age))
+</div>
+<script>
+  prompt("two-i");
+  addDep("two-i", ["two-g"]);
+</script>
+
+<h4> 2.1 - Questions </h4>
+
+<div id="two-one-a">
+</div>
+<script>
+  prompt("two-one-a");
+</script>
+
+<!-- Solution
+(fact (equal ?a ?a))
+-->
+
+<div id="two-one-b">
+(query (equal a a))       ; Success!
+(query (equal (a b (c))
+              (a b (c)))) ; Success!
+(query (equal a b))       ; Failed!
+</div>
+<script>
+  prompt("two-one-b");
+  addDep("two-one-b", ["two-one-a"]);
+</script>
+
+<h4> 3 - Complex Facts </h4>
+<div id="three-a">
+(fact (sells-same ?store1 ?store2)
+        (sells ?store1 ?item)
+        (sells ?store2 ?item))
+(fact (sells farmers-market groceries))
+(fact (sells starbucks coffee))
+</div>
+<script>
+  prompt("three-a");
+</script>
+
+<div id="three-b">
+(query (sells-same supermarket farmers-market))
+</div>
+<script>
+  prompt("three-b");
+  addDep("three-b", ["three-a", "two-a"]);
+</script>
+
+<div id="three-c">
+(query (sells-same supermarket starbucks))
+</div>
+<script>
+  prompt("three-c");
+  addDep("three-c", ["three-a", "two-a"]);
+</script>
+
+<div id="three-d">
+(query (sells-same ?store supermarket))
+</div>
+<script>
+  prompt("three-d");
+  addDep("three-d", ["three-a", "two-a"]);
+</script>
+
+<div id="three-e">
+(query (sells-same ?store1 ?store2))
+</div>
+<script>
+  prompt("three-e");
+  addDep("three-e", ["three-a", "two-a"]);
+</script>
+
+<h4> 3.1 Questions </h4>
+
+<h4> 3.1.1 </h4>
+<div id="three-one-one-a">
+
+</div>
+<script>
+  prompt("three-one-one-a");
+</script>
+<!-- Solution
+(fact (member ?a (?a . ?rest)))
+(fact (member ?a (?b . ?rest))
+      (member ?a ?rest))
+  -->
+
+<div id="three-one-one-b">
+(query (member a (a b c)))
+; Success!
+(query (member d (a b c)))
+; Failure.
+(query (member ?elem (a b c)))
+; Success!
+; ?elem: a
+; ?elem: b
+; ?elem: c
+</div>
+<script>
+  prompt("three-one-one-b");
+  addDep("three-one-one-b", ["three-one-one-a"]);
+</script>
+
+<h4> 3.1.2 </h4>
+
+<div id="three-one-two-a">
+
+</div>
+<script>
+  prompt("three-one-two-a");
+</script>
+<!-- Solution
+(fact (match () ()))
+(fact (match (?a . ?resta) (?a . ?restb))
+      (match ?resta ?restb))
+  -->
+
+<div id="three-one-two-b">
+(query (match (i am so cool) (i am . ?you)))
+; Success!
+; you: (so cool)
+</div>
+<script>
+  prompt("three-one-two-b");
+  addDep("three-one-two-b", ["three-one-two-a"]);
+</script>
+
+<h4> 3.1.3 </h4>
+
+<div id="three-one-three-a">
+
+</div>
+<script>
+  prompt("three-one-three-a");
+</script>
+<!-- Solution
+(fact (every-other () ()))
+(fact (every-other (?a) (?a)))
+(fact (every-other (?a . (?b . ?rest-a))
+                   (?a . ?rest-b))
+      (every-other ?rest-a ?rest-b))
+  -->
+
+<div id="three-one-three-b">
+(query (every-other (frodo merry sam pippin) ?x))
+; Success!
+; x: (frodo sam)
+(query (every-other (gandalf) ?x))
+; Success!
+; x: (gandalf)
+</div>
+<script>
+  prompt("three-one-three-b");
+  addDep("three-one-three-b", ["three-one-three-a"]);
+</script>
+
+<h4> 3.1.4 </h4>
+
+<div id="three-one-four-a">
+(fact (complementary a t))
+(fact (complementary t a))
+(fact (complementary c g))
+(fact (complementary g c))
+</div>
+<script>
+  prompt("three-one-four-a");
+</script>
+<!-- Solution
+(fact (mapped ?a () ()))
+(fact (mapped ?relation
+              (?src . ?src-rest)
+              (?dest . ?dest-rest))
+      (?relation ?src ?dest)
+      (mapped ?relation
+              ?src-rest
+              ?dest-rest))
+  -->
+
+<div id="three-one-four-b">
+(query (mapped complementary (g t a g t a g t a) ?nyan))
+; Success!
+; nyan: (c a t c a t c a t)
+</div>
+<script>
+  prompt("three-one-four-b");
+  addDep("three-one-four-b", ["three-one-four-a"]);
+</script>
+
+<h4> 3.1.5 </h4>
+
+<div id="three-one-five-a">
+
+</div>
+<script>
+  prompt("three-one-five-a");
+</script>
+<!-- Solution
+(fact (prefix () ?any-list))
+(fact (prefix (?first . ?small) (?first . ?big))
+      (prefix ?small ?big))
+  -->
+
+<div id="three-one-five-b">
+(query (prefix (being for the) (being for the
+                     benefit of mister kite)))
+; Success!
+(query (prefix (for no one) (for no one)))
+; Success!
+(query (prefix () (got to get you into my life)))
+; Success!
+(query (prefix (want i to) (i want to hold your hand)))
+; Failed.
+</div>
+<script>
+  prompt("three-one-five-b");
+  addDep("three-one-five-b", ["three-one-five-a"]);
+</script>
+
+<h4> 3.1.6 </h4>
+
+<div id="three-one-six-a">
+
+</div>
+<script>
+  prompt("three-one-six-a");
+</script>
+<!-- Solution
+(fact (sublist ?a ?b) (prefix ?a ?b))
+(fact (sublist ?sub (?first . ?rest)) (sublist ?sub ?rest))
+  -->
+
+<div id="three-one-six-b">
+(query (sublist (give) (never gonna give you up)))
+; Success!
+(query (sublist (you up) (never gonna give you up)))
+; Success!
+(query (sublist () (never gonna give you up)))
+; Success!
+(query (sublist (never give up) (never gonna give you up)))
+; Failed.
+(query (sublist (let you down) (never gonna give you up)))
+; Failed.
+</div>
+<script>
+  prompt("three-one-six-b");
+  addDep("three-one-six-b", ["three-one-six-a", "three-one-five-a"]);
+</script>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</head>
+</html>
