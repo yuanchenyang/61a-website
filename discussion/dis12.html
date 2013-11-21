@@ -107,7 +107,7 @@
 (query (equal a a))       ; Success!
 (query (equal (a b (c))
               (a b (c)))) ; Success!
-(query (equal a b))       ; Failed!
+(query (equal a b))       ; Failed.
 </div>
 <script>
   prompt("two-one-b");
@@ -177,7 +177,7 @@
 (query (member a (a b c)))
 ; Success!
 (query (member d (a b c)))
-; Failure.
+; Failed.
 (query (member ?elem (a b c)))
 ; Success!
 ; ?elem: a
