@@ -1,3 +1,5 @@
 site_config.js
 *~
 .DS_STORE
+*.pyc
+.ropeproject

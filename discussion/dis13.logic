@@ -1,0 +1,53 @@
+Question 1
+----------
+; What would logic print?
+
+(fact (append () ?x ?x))
+(fact (append (?a . ?r) ?y (?a . ?z))
+      (append ?r ?y ?z))
+
+(fact (moo () () ()))
+(fact (moo (?a . ?r) (?b . ?s) ((?a ?b) . ?t))
+      (moo ?r ?s ?t))
+
+(query (append (1 2) 3 (1 2 3)))
+(query (append (1 2) (3 4) (1 . ?what)))
+(query (moo 7 9 (7 9)))
+(query (moo ?x ?y ((cow moo) (dog woof) (duck quack))))
+(query (moo (a b c) (1 2 3) ?what))
+
+Question 2
+----------
+; Write a relation sorted that is true if the given list is sorted in increasing
+; order. Assume that you have a <= relation that relates two items if the first is
+; less than or equal to the second.
+
+(fact ( <= a a ))
+(fact ( <= a b ))
+(fact ( <= a c ))
+(fact ( <= b b ))
+(fact ( <= b c ))
+(fact ( <= c c ))
+
+
+(query ( sorted ()))            ; Success!
+(query ( sorted ( a b b c )))   ; Success!
+(query ( sorted ( a b a c )))   ; Failed.
+(query ( sorted ( b a c )))     ; Failed.
+
+
+Question 3
+----------
+; The palindrome relation indicates that a list is the same backward and forward.
+
+(fact (append () ?x ?x))
+(fact (append (?a . ?r) ?y (?a . ?z))
+      (append ?r ?y ?z))
+
+
+(query (palindrome a b c d e))    ; Failed.
+(query (palindrome a b c a))      ; Failed.
+(query (palindrome a b c b a))    ; Success!
+(query (palindrome a b b a))      ; Success!
+(query (palindrome a))            ; Success!
+(query (palindrome a ?x c b ?y))  ; Success! ; ?x: b ; ?y: a

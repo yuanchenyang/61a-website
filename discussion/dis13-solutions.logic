@@ -1,0 +1,30 @@
+2.
+(fact (sorted ()))
+(fact (sorted (?a)))
+(fact (sorted (?a ?b . ?rest))
+      ( <= ?a ?b)
+      (sorted (?b . ?rest)))
+
+3.
+(fact (palindrome))
+(fact (palindrome ?a))
+(fact (palindrome ?a . ?rest)
+      (append-to-form ?imm (?a) ?rest)
+      (palindrome . ?imm))
+
+4.
+    seen = set()
+    for item in iterable:
+        if item not in seen:
+            seen.add(item)
+            yield item
+
+5.
+    def make_stream(current):
+        def compute_rest():
+            next = current + 1
+            if next >= stop:
+                next -= start
+            return make_stream(next)
+        return Stream(current, compute_rest)
+    return make_stream(start)
