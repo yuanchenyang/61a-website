@@ -11,18 +11,54 @@
 <script src="js/codemirror.js"></script>
 <script src="js/scheme-mode.js"></script>
 <script src="js/jquery.min.js"></script>
-<script src="js/coding-logic.js"> </script>
+<script src="js/coding.js"> </script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43609447-1', 'berkeley.edu');
+  ga('send', 'pageview');
+</script>
+
+
+<script>
+$(function() {
+  RELEASE_TIME = 1386979200; // UNIX time in milliseconds
+  if ((new Date).getTime() / 1000 < RELEASE_TIME) {
+    $(".solution").hide();
+  }
+})
+</script>
 
 <h2> Review - Scheme </h2>
 
 <hr>
 <h4></h4>
 
-<div id="two-a">
-(fact (sells supermarket groceries))
+<div id="test">
+(+ 1 2)
 </div>
 <script>
-  prompt("two-a");
+  prompt("test");
+</script>
+
+<script>
+var todo = Object.keys(editorOf);
+
+(function proc() {
+  if (todo.length == 0) {
+    return;
+  }
+  try {
+    var first = todo.shift();
+    editorOf[first].getOption("onBlur")().then(proc);
+  } catch (err) {
+    proc();
+  }
+})();
 </script>
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
