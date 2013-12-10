@@ -33,16 +33,81 @@ $(function() {
 })
 </script>
 
-<h2> Review - Scheme </h2>
-
+<h2> Review - Scheme Scoping and Tail Calls</h2>
 <hr>
-<h4></h4>
 
-<div id="test">
-(+ 1 2)
+<h4> Tail Calls </h4>
+
+<p> Write a function <tt>last</tt>, which takes in a list and returns the last
+  element of the list.</p>
+
+<div id="last">
+(define (last s)
+  'Your-Code-Here)
+
+(last '(1 2 3 4 5)) ; 5
 </div>
 <script>
-  prompt("test");
+  prompt("last");
+</script>
+
+<p> Write the tail recursive version of a function that returns the nth
+fibonacci number. It might be beneficial to try writing a normal recursive
+solution and/or a iterative Python version first.</p>
+<div id="fib">
+(define (fib n)
+  'Your-Code-Here)
+
+(fib 10) ; 55
+</div>
+<script>
+  prompt("fib");
+</script>
+
+<p> Write a tail-recursive function reverse that takes in a Scheme list a
+  returns a reversed copy. Hint: use a helper function! </p>
+<div id="reverse">
+(define (reverse lst)
+  'Your-Code-Here)
+
+(reverse '(1 2 3 4)) ; (4 3 2 1)
+(reverse '(1))       ; (1)
+</div>
+<script>
+  prompt("reverse");
+</script>
+
+<p> Write a tail-recursive function that inserts number n into a sorted list of
+  numbers, s. Hint: Use the built-in scheme function append. </p>
+<div id="insert">
+(define (insert n s)
+  'Your-Code-Here)
+
+(insert 2 '(1 3 4)) ; (1 2 3 4)
+(insert 1 '(2))     ; (1 2)
+</div>
+<script>
+  prompt("insert");
+</script>
+
+<h4> Scoping </h4>
+
+Write the value of the scheme expression <tt>(f 7)</tt> after evaluating the
+define expressions below:
+
+<div id="mu">
+(define j
+  (mu (c k)
+    (if (< c n)
+        (j (+ c 2) (- k 1))
+         k)))
+
+(define (f n)
+  (define c n)
+  (j 0 0))
+</div>
+<script>
+  makeStatic("mu");
 </script>
 
 <script>
