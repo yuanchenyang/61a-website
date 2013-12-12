@@ -38,7 +38,7 @@ $(function() {
 
 <h4> Tail Calls </h4>
 
-<p> Write a function <tt>last</tt>, which takes in a list and returns the last
+<p> Write a tail recursive function <tt>last</tt>, which takes in a list and returns the last
   element of the list.</p>
 
 <div id="last">
@@ -83,6 +83,7 @@ solution and/or a iterative Python version first.</p>
 (define (insert n s)
   'Your-Code-Here)
 
+(insert 3 '(1 2))   ; (1 2 3)
 (insert 2 '(1 3 4)) ; (1 2 3 4)
 (insert 1 '(2))     ; (1 2)
 </div>
@@ -109,6 +110,39 @@ define expressions below:
 <script>
   makeStatic("mu");
 </script>
+
+<p>Draw the environment diagram for the following code, ﬁrst with Lexical
+  Scoping, and then with Dynamic Scoping. </p>
+
+<h4> 1. </h4>
+<pre>
+x = 10
+def foo(x):
+    return x * bar(2)
+def bar(y):
+    return y + x
+foo(3)
+</pre>
+
+
+<h4> 2. </h4>
+<pre>
+def make_counter(x):
+    def count(m):
+        nonlocal x
+        if m == 'inc':
+            x += 1
+        elif m== 'count':
+            return x
+    return count
+c1 = make_counter(5)
+c2 = make_counter(7)
+c1('inc')
+c1('inc')
+c1('count')
+</pre>
+
+
 
 <script>
 var todo = Object.keys(editorOf);
